@@ -1,0 +1,3 @@
+DUPLA = []
+TRIO = []
+SEIS = []

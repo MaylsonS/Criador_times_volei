@@ -1,0 +1,13 @@
+@media (max-width: 582px) {
+    .escolhas{
+        flex-direction: column;
+        margin: auto;
+  }
+
+  .card{
+    margin: auto;
+    gap: 3%;
+    background: cadetblue;
+    margin-top: 4%;
+  }
+}
