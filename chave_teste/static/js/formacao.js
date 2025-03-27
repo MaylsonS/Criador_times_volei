@@ -20,7 +20,7 @@ document.addEventListener(  "DOMContentLoaded", () => {
             switch (nome) {
                 default:
                     form.action = "/times/dupla";
-
+                
                 case "trio":
                     form.action = "/times/trio";
                     break;

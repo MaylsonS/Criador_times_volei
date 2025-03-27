@@ -5,9 +5,9 @@ document.addEventListener(  "DOMContentLoaded", () => {
     botoes.forEach((botao) => {
         botao.addEventListener('click', () =>  {
             
-            botoes.forEach((b) => b.classList.replace('btn-info', 'btn-secondary'));
+            botoes.forEach((b) => b.classList.replace('btn-info', 'btn-danger'));
             
-            botao.classList.replace('btn-secondary', 'btn-info');
+            botao.classList.replace('btn-danger', 'btn-info');
         
             atualizar_rota(botao);
         });

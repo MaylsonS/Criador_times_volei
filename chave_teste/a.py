@@ -3,8 +3,26 @@ DUPLA = []
 TRIO = []
 SEIS = []
 
+def formar_chaves(lista, limite):
+    partida = []
+    lista_embaralhada = lista.copy()
+    random.shuffle(lista_embaralhada)
+    print(f"COPIA: {lista_embaralhada}")
 
-for x in range(10):
+    for time in lista_embaralhada:
+        if partida and len(partida[-1]) < limite:
+            partida[-1].append(time)
+
+        else:
+            partida.append([time])
+
+    for x in range(0,len(partida)):
+        (CHAVES.append(partida[x]))
+
+    print(f"CHAVE: {CHAVES}")
+
+
+for x in range(12):
     if DUPLA and len(DUPLA[-1]) < 2:
         DUPLA[-1].append(x)
     else:
@@ -12,21 +30,29 @@ for x in range(10):
 
 print(DUPLA)
 print(len(DUPLA))
-numeros_sort = []
-
-a = random.randint(1,len(DUPLA))
-
-for x in range(1,a ):
-    if x in numeros_sort:
-        print(f"Numero já sortedo: {x}")
-        
-        while x in numeros_sort:
-            print(f"Novo numero: {random.randint(1, len(DUPLA))}")
-    else:
-        numeros_sort.append(x)
-        print(f"Dupla exlcuida{DUPLA.pop(x)}")
+CHAVES = []
+partida = []
 
 
 
+if len(DUPLA) % 2 != 0:
+    confirm = input("Voce tem um time sobrando, quer continuar ?").lower()
+    
+    formar_chaves(DUPLA,2) if confirm == 's' else print("Chaves n formadas")
+else:
+    formar_chaves(DUPLA,2)
 
-print(f"Random: {a}")
+# for time in lista_embaralhada:
+#     if partida and len(partida[-1]) < 2:
+#       partida[-1].append(time)
+
+#     else:
+#         partida.append([time])
+
+# print(f"Partidas: {partida}")
+# print(len(partida))
+# for x in range(0,len(partida)):
+#     (CHAVES.append(partida[x]))
+
+# print(f"CHAVE: {CHAVES}")
+

@@ -7,5 +7,10 @@
 </head>
 <body>
     <h1>Chaves dos jogos </h1>
+    {% if chave %}
+        {% for time in chave %}
+            {{time}}
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
