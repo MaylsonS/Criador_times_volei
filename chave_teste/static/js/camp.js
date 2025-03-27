@@ -19,18 +19,18 @@ document.addEventListener(  "DOMContentLoaded", () => {
 
             switch (nome) {
                 default:
-                    form.action = "/times/dupla";
-
+                    form.action = "/campeonato/dupla";
+                    break;
                 case "trio":
-                    form.action = "/times/trio";
+                    form.action = "/campeonato/trio";
                     break;
                 case "seis":
-                    form.action = "/times/seis";
+                    form.action = "/campeonato/seis";
                     break;
                 case "dupla":
-                    form.action = "/times/dupla";
+                    form.action = "/campeonato/dupla";
                     break;
-              
+                
             }
         }
     }
