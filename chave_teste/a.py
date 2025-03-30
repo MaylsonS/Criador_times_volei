@@ -15,14 +15,14 @@ def formar_chaves(lista, limite):
 
         else:
             partida.append([time])
-
-    for x in range(0,len(partida)):
-        (CHAVES.append(partida[x]))
+    CHAVES.extend(partida)
+    # for x in range(0,len(partida)):
+    #     (CHAVES.append(partida[x]))
 
     print(f"CHAVE: {CHAVES}")
 
 
-for x in range(12):
+for x in range(10):
     if DUPLA and len(DUPLA[-1]) < 2:
         DUPLA[-1].append(x)
     else:
@@ -41,6 +41,9 @@ if len(DUPLA) % 2 != 0:
     formar_chaves(DUPLA,2) if confirm == 's' else print("Chaves n formadas")
 else:
     formar_chaves(DUPLA,2)
+
+for time in CHAVES:
+       print(f"{time[0]} X {time[1]}") if len(time) == 2 else print(f"Apenas um time {time[0]}")
 
 # for time in lista_embaralhada:
 #     if partida and len(partida[-1]) < 2:

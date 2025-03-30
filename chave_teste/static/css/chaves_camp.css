@@ -1,0 +1,41 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+main{
+    display: flex;    
+    justify-content: space-between;
+    padding: 2%;
+    width: 73%;
+    gap: 20%;
+    flex-wrap: wrap;
+    margin: auto;   
+}
+
+.titulo_final{
+    text-align: center;
+}
+
+.jogo_final{
+    content: '';
+    padding: 3.5%;
+    width: 30%;
+    background-color: rgb(212, 212, 109);
+    margin: -5px 30% 0px 30%;
+    border-radius: 5%;
+}
+
+.form_button{
+    display: flex;
+    justify-content: center;
+}
+
+.button_form{
+    border: none;
+    background-color: green;
+    border-radius: 14px;
+    font-size: medium;
+    width: 17%;
+    font-family: sans-serif;
+}

@@ -1,16 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/chaves_camp.css">
+    <title>Chaves dos Times</title>
 </head>
 <body>
     <h1>Chaves dos jogos </h1>
+    <div class="final">
+        <div class="titulo_final"><h1>Final</h1></div>
+        <div class="jogo_final"></div>
+    </div>
+    <main>
     {% if chave %}
-        {% for time in chave %}
-            {{time}}
+        {% for grupo in chave %}
+        <div class="partida">
+            <h2>Partida {{ loop.index }}</h2>
+                {% for partida in grupo %}
+                    {% if partida|length == 2 %}
+                    <p>
+                        {{ partida[0]['nome'] }} X {{ partida[1]['nome'] }}
+                    </p>
+                    {% else %}
+                    <p>
+                        {{ partida[0] }}
+                    </p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
         {% endfor %}
+    {% endif %}
+
+    </main>
+    <form class="form_button" action method="post">
+        <button class="button_form"><h3>Comecar</h3></button>
+    </form>
+
+    {% if erro %}
+    <p style="color: red;">{{ erro }}</p>
     {% endif %}
 </body>
 </html>
