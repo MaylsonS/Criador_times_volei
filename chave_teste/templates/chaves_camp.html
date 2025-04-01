@@ -13,33 +13,51 @@
         <div class="jogo_final"></div>
     </div>
     <main>
-    {% if chave %}
-        {% for grupo in chave %}
-        <div class="partida">
-            <h2>Partida {{ loop.index }}</h2>
-                {% for partida in grupo %}
-                    {% if partida|length == 2 %}
-                    <p>
-                        {{ partida[0]['nome'] }} X {{ partida[1]['nome'] }}
-                    </p>
-                    {% else %}
-                    <p>
-                        {{ partida[0] }}
-                    </p>
-                    {% endif %}
+        <form action="/campeonato/criar_partida" method="post" class="form_partidas">
+             
+                {% if chave %}
+                {% for grupo in chave %}
+                <div class="partida">
+                    <label class="card_partida checkbox-card">
+                        <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
+                        <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
+                        <div class="card-body">
+                            <h5 class="card-title">Partida {{ loop.index }}</h5>
+                            <ul>
+                                {% for partida in grupo %}
+                                    {% if partida|length == 2 %}
+                                    <p>
+                                        {{ partida[0]['nome'] }} X {{ partida[1]['nome'] }}
+                                    </p>
+                                    {% else %}
+                                    <p>
+                                        {{ partida[0] }}
+                                    </p>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </label>
+                </div>
                 {% endfor %}
-            </div>
-
-        {% endfor %}
-    {% endif %}
-
+            {% endif %}
+            
+               
+              
+            <form class="form_button" action method="post">
+                <button class="button_form"><h3>Comecar</h3></button>
+            </form>      
+          </form>
+          
     </main>
-    <form class="form_button" action method="post">
-        <button class="button_form"><h3>Comecar</h3></button>
-    </form>
+    <div class="mensagens">
+        {% if erro %}
+          <p style="color: red;">{{erro}}</p>
+        {% endif %}
 
-    {% if erro %}
-    <p style="color: red;">{{ erro }}</p>
-    {% endif %}
+        {% if sucesso %}
+          <p style="color: green;">{{sucesso}}</p>
+        {% endif %}
+      </div>
 </body>
 </html>

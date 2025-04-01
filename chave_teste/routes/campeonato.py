@@ -11,6 +11,9 @@ def home():
 
 @campeonato_route.route("/verificar", methods=["POST"])
 def verificar():
+    erro = request.args.get("erro", None)
+    sucesso = request.args.get("sucesso", None)
+
     if verificar_times(DUPLA, 2):
         return render_template("campeonato.html", nomes=exibir_nomes(DUPLA, 2), erro="Há um time incompleto!")
     if verificar_times(TRIO, 3):
@@ -62,6 +65,11 @@ def seis_campeonato():
 def formar_chaves():
     lista_de_time = session.get("lista_de_time")
     limite = session.get("limite",2)
+    erro = request.args.get("erro", None)
+    sucesso = request.args.get("sucesso", None)
+
+    if erro or sucesso:
+        return render_template("chaves_camp.html", chave= CHAVES, erro=erro, sucesso=sucesso)
     
     if not lista_de_time:
         return render_template("chaves_camp.html", chave=[], erro="Nenhum time foi formado.")
@@ -87,3 +95,89 @@ def formar_chaves():
 
     print(f"CHAVE: {CHAVES}")
     return render_template("chaves_camp.html", chave= CHAVES)
+
+@campeonato_route.route("/criar_partida", methods=["POST","GET"])
+def criar_partida():
+    if request.method == "GET":
+        return "CRIAR PARTIDA GET"
+    session["pontosB"], session["pontosA"],session["limite"] = 0, 0, 0
+    session.pop("times_partida",  None)
+    lista_times = request.form.getlist("selecione_os_times")
+
+    if len(lista_times) != 1:
+        return redirect(url_for("campeonato_route.formar_chaves", erro="Voce precisa escolher uma partida!!"))
+    else:
+        lista_times = [time.split("x") for time in lista_times]
+        
+        print(f"indicis lista: {lista_times}")
+
+        grupo =  DUPLA if DUPLA else TRIO if TRIO else SEIS
+        
+        if not grupo:
+            return redirect(url_for("campeonato_route.formar_chaves", erro="Grupos vazio"))
+
+        session["times_partida"] = [grupo[indici] for indici in lista_times]
+        print(f'times_partida: {session["times_partida"]}')
+
+        print(session["times_partida"])
+        return render_template("campeonato_partida.html", sucesso="passou", times = session["times_partida"])
+    
+@campeonato_route.route("/partida", methods=["POST", "GET"])
+def partida():
+    erro = request.args.get("erro", None)
+    sucesso = request.args.get("sucesso", None)
+
+    times= SEIS if SEIS else TRIO if TRIO else DUPLA
+
+    return render_template("campeonato_partida.html", times=times ,erro=erro,sucesso=sucesso)
+
+@campeonato_route.route("/pontos", methods=["POST"])
+def pontos():
+    if "pontosA" not in session:
+        session["pontosA"] = 0
+    if "pontosB" not in session:
+        session["pontosB"] = 0
+    if "LIMITE" not in session:
+        session["LIMITE"] = 100
+
+    acao = request.form.get("action")
+
+    if acao == "limtie_pontos":
+        limite = int(request.form.get("ponto_limite", 0))
+        print(f"LIMITE: {limite}")
+        session["LIMITE"] = limite
+        return render_template("campeonato_partida.html", pontos1=session["pontosA"], pontos2=session["pontosB"], limite=session["LIMITE"], times = session["times_partida"])
+
+    elif acao == "atualizar_pontos":
+        # Atualiza os pontos para o time A
+        valorA = int(request.form.get("btn_valorA", 0))
+        print(f"PontoA: {valorA}")
+        session["pontosA"] += valorA
+        session["pontosA"] = max(0, session["pontosA"])  # Impede valores negativos
+
+        # Atualiza os pontos para o time B
+        valorB = int(request.form.get("btn_valorB", 0))
+        print(f"PontoB: {valorB}")
+        session["pontosB"] += valorB
+        session["pontosB"] = max(0, session["pontosB"])  # Impede valores negativos
+
+        # Verifica se algum time alcançou o limite
+        if session["pontosA"] == session["LIMITE"]:
+            print(f'A ganhador {session["times_partida"][0]}')
+            return render_template("winner_campeonato.html", vencedor=session["times_partida"][0], pontos=session["pontosA"],times = session["times_partida"], time_vencedor = session["times_partida"][0][0])
+        
+        elif session["pontosB"] == session["LIMITE"]:
+            print(f'B ganhador {session["times_partida"][1]}')
+            return render_template("winner_campeonato.html", vencedor = session["times_partida"][1], pontos=session["pontosB"],times = session["times_partida"], time_vencedor = session["times_partida"][0][1])
+
+        return render_template("campeonato_partida.html", pontos1=session["pontosA"], pontos2=session["pontosB"], limite=session["LIMITE"],times = session["times_partida"])
+
+    else:
+        return render_template("campeonato_partida.html",  erro="Ação desconhecida", pontos1=session["pontosA"], pontos2=session["pontosB"], limite=session["LIMITE"], times = session["times_partida"])
+    
+@campeonato_route.route("/winner", methods=["POST"])
+def winner():
+    if request.method("GET"):
+        return render_template("home.html")
+    print(CHAVES)
+    return render_template("chaves_camp.html", chave= CHAVES, erro= session["erro"])

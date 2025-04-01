@@ -4,13 +4,12 @@ body{
     box-sizing: border-box;
 }
 main{
-    display: flex;    
-    justify-content: space-between;
+    display: flex;   
     padding: 2%;
-    width: 73%;
     gap: 20%;
     flex-wrap: wrap;
-    margin: auto;   
+    align-items: center;
+    justify-content: center;
 }
 
 .titulo_final{
@@ -39,3 +38,48 @@ main{
     width: 17%;
     font-family: sans-serif;
 }
+
+.form_partidas{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.card_partida{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body ul{
+    margin: 0;
+    padding: 0;
+}
+
+.checkbox-card {
+    box-shadow: 16px -4px 5px #8454;
+    border: 1px solid;
+    padding: 3%;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+.checkbox-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+
+.card-input:checked + .card-body {
+    border-color: #007bff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+  }

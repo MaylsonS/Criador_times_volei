@@ -60,24 +60,24 @@ def pontos():
         return render_template("partida.html", pontos1=session["pontosA"], pontos2=session["pontosB"], limite=session["LIMITE"], times = session["times_partida"])
 
     elif acao == "atualizar_pontos":
-        # Atualize os pontos para o time A
+        # Atualiza os pontos para o time A
         valorA = int(request.form.get("btn_valorA", 0))
         print(f"PontoA: {valorA}")
         session["pontosA"] += valorA
         session["pontosA"] = max(0, session["pontosA"])  # Impede valores negativos
 
-        # Atualize os pontos para o time B
+        # Atualiza os pontos para o time B
         valorB = int(request.form.get("btn_valorB", 0))
         print(f"PontoB: {valorB}")
         session["pontosB"] += valorB
         session["pontosB"] = max(0, session["pontosB"])  # Impede valores negativos
 
         # Verifica se algum time alcançou o limite
-        if session["pontosA"] >= session["LIMITE"]:
+        if session["pontosA"] == session["LIMITE"]:
             print(f'A ganhador {session["times_partida"][0]}')
             return render_template("winner.html", vencedor=session["times_partida"][0], pontos=session["pontosA"],times = session["times_partida"], time_vencedor = session["times_partida"][0][0])
         
-        elif session["pontosB"] >= session["LIMITE"]:
+        elif session["pontosB"] == session["LIMITE"]:
             print(f'B ganhador {session["times_partida"][1]}')
             return render_template("winner.html", vencedor = session["times_partida"][1], pontos=session["pontosB"],times = session["times_partida"], time_vencedor = session["times_partida"][0][1])
 
