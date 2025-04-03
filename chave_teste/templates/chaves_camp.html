@@ -27,8 +27,11 @@
                                 {% for partida in grupo %}
                                     {% if partida|length == 2 %}
                                     <p>
-                                        {{ partida[0]['nome'] }} X {{ partida[1]['nome'] }}
+                                        {{ partida[0]['nome'] }} & {{ partida[1]|replace("& {'nome': '", "")|replace("'}", "") }} 
                                     </p>
+                                        {% if not loop.last %} 
+                                            <p>vs</p>
+                                        {% endif %}
                                     {% else %}
                                     <p>
                                         {{ partida[0] }}
@@ -41,9 +44,7 @@
                 </div>
                 {% endfor %}
             {% endif %}
-            
-               
-              
+                          
             <form class="form_button" action method="post">
                 <button class="button_form"><h3>Comecar</h3></button>
             </form>      

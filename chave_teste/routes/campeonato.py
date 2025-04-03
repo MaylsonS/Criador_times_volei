@@ -94,7 +94,7 @@ def formar_chaves():
     #     (CHAVES.append(partida[x]))
 
     print(f"CHAVE: {CHAVES}")
-    return render_template("chaves_camp.html", chave= CHAVES)
+    return render_template("chaves_camp.html", chave = CHAVES)
 
 @campeonato_route.route("/criar_partida", methods=["POST","GET"])
 def criar_partida():
@@ -103,23 +103,29 @@ def criar_partida():
     session["pontosB"], session["pontosA"],session["limite"] = 0, 0, 0
     session.pop("times_partida",  None)
     lista_times = request.form.getlist("selecione_os_times")
+    session["partida"] = []
 
     if len(lista_times) != 1:
         return redirect(url_for("campeonato_route.formar_chaves", erro="Voce precisa escolher uma partida!!"))
     else:
-        lista_times = [time.split("x") for time in lista_times]
+        # lista_times = [time.split("vs").split("&") for time in lista_times]
         
-        print(f"indicis lista: {lista_times}")
-
-        grupo =  DUPLA if DUPLA else TRIO if TRIO else SEIS
+        grupo =  CHAVES
         
         if not grupo:
             return redirect(url_for("campeonato_route.formar_chaves", erro="Grupos vazio"))
 
-        session["times_partida"] = [grupo[indici] for indici in lista_times]
+        session["times_partida"] = [grupo[int(indici)] for indici in lista_times]
         print(f'times_partida: {session["times_partida"]}')
+        partida_temporaria =[]
+        for partida in session["times_partida"]:
+            for time in partida:
+                dupla = [time[0]["nome"], time[1].split("'")[3]]
+                partida_temporaria.append(dupla)
 
-        print(session["times_partida"])
+        session["partida"] = ( [partida_temporaria[i:i+2] for i in range (0, len(partida_temporaria), 2 )] )
+
+        print("Partida",session["partida"])
         return render_template("campeonato_partida.html", sucesso="passou", times = session["times_partida"])
     
 @campeonato_route.route("/partida", methods=["POST", "GET"])
