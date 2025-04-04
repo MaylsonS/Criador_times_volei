@@ -26,11 +26,11 @@
     <div class="row row-cols-1 row-cols-md-6 g-4 justify-content-center mt-3">
         <div class="col">
           <div class="card h-100">
-            <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
+            <img src="/static/imgs/TI.png" class="card-img-top" width="32%">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               {% for jogador in vencedor  %}
-              <h3 class="card-text">{{jogador.nome}}</h3>
+              <h3 class="card-text">{{jogador|replace("& {'nome': '", "")|replace("'}", "")|replace("{'nome': '", "")}}</h3>
               {% endfor %}
             </div>
             <div class="card-footer">
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <form class="iniciar_partida" action="/campeonato/chaves">
+      <form class="iniciar_partida" value="" action="/campeonato/proxima_partida">
         <button type="submit">Proxima partida</button>
 
       </form>

@@ -1,0 +1,8 @@
+Criar funcoes onde limpa os caracteres indesejaveis, no lugar de usar o replace;
+
+Pensar em uma melhor maneira de guardar os times do campeonato, e se fizer isso, --
+ajustar o cod no jinja (a maneira de iterar sobre os times.) ;
+
+Criar modal para quando ao criar os times, se a quantidade for impar --
+perguntar se ele quer continuar, pq se não um time ira ficar sem partida no inicio; 
+
