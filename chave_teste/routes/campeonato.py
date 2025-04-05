@@ -11,6 +11,7 @@ def home():
 
 @campeonato_route.route("/verificar", methods=["POST"])
 def verificar():
+    SEMI_FINAL.clear()
     erro = request.args.get("erro", None)
     sucesso = request.args.get("sucesso", None)
 
@@ -69,10 +70,10 @@ def formar_chaves():
     sucesso = request.args.get("sucesso", None)
 
     if erro or sucesso:
-        return render_template("chaves_camp.html", chave= CHAVES, erro=erro, sucesso=sucesso)
+        return render_template("chaves_camp.html", chave= CHAVES, erro=erro, sucesso=sucesso,semi_finais= SEMI_FINAL)
     
     if not lista_de_time:
-        return render_template("chaves_camp.html", chave=[], erro="Nenhum time foi formado.")
+        return render_template("chaves_camp.html", chave=[], erro="Nenhum time foi formado.",semi_finais= SEMI_FINAL)
     
     partida = []
     lista_embaralhada = lista_de_time.copy()
@@ -94,7 +95,7 @@ def formar_chaves():
     #     (CHAVES.append(partida[x]))
 
     print(f"CHAVE: {CHAVES}")
-    return render_template("chaves_camp.html", chave = CHAVES)
+    return render_template("chaves_camp.html", chave = CHAVES,semi_finais= SEMI_FINAL)
 
 @campeonato_route.route("/criar_partida", methods=["POST","GET"])
 def criar_partida():
@@ -178,17 +179,26 @@ def pontos():
             for grupo in session["times_partida"]:
                 for time in grupo[0]:
                     session["time_vencedor"].append(time)
-    
+            adicionar_jogador(SEMI_FINAL, session["time_vencedor"], 2) 
+            
+            print(f"SEMI A: {SEMI_FINAL}")
+            
             return render_template("winner_campeonato.html", vencedor=session["time_vencedor"], pontos=session["pontosA"],times = session["times_partida"])
-        
+             
+            
+            
         elif session["pontosB"] == session["LIMITE"]:
             
             for grupo in session["times_partida"]:
                 for time in grupo[1]:
                     session["time_vencedor"].append(time)
-
+            adicionar_jogador(SEMI_FINAL, session["time_vencedor"], 2)     
+           
+            print(f"SEMI B: {SEMI_FINAL}")
             return render_template("winner_campeonato.html", vencedor = session["time_vencedor"], pontos=session["pontosB"],times = session["times_partida"])
-
+            
+            
+            
         return render_template("campeonato_partida.html", pontos1=session["pontosA"], pontos2=session["pontosB"], limite=session["LIMITE"],times = session["times_partida"])
 
     else:
@@ -196,4 +206,4 @@ def pontos():
     
 @campeonato_route.route("/proxima_partida", methods = ["POST"])
 def proxima_partida():
-    SEMI_FINAL.append()
+    return render_template("chaves_camp.html", chave= CHAVES, semi_finais= SEMI_FINAL)
