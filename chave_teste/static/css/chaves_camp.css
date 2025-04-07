@@ -17,15 +17,19 @@ main{
 }
 
 .jogo_final{
-    content: '';
     padding: 3.5%;
     width: 30%;
-    background-color: rgb(212, 212, 109);
-    margin: -5px 30% 0px 30%;
+    margin: -5px 5% 0px 5%;
     border-radius: 5%;
 }
 
-.form_button{
+.semi{
+    display: flex;
+    background-color: palegreen;
+    border-radius: 30px;
+}
+
+.button_comecar{
     display: flex;
     justify-content: center;
 }
@@ -72,6 +76,7 @@ main{
     padding: 3%;
     cursor: pointer;
     transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: antiquewhite;
   }
 
 .checkbox-card:hover {

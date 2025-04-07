@@ -1,8 +1,18 @@
-lista = [[["time 1", "time 2"], ["time 3", "time 4"]]]
+lista =  [[[{'nome': 'Renan'}, {'nome': 'Mikael'}], [{'nome': 'clodoldo tang'}, {'nome': 'ma ylson'}]], [[{'nome': 'Emilio'}, {'nome': 'Surita'}], [{'nome': 'Daniel'}, {'nome': 'Zukerman'}]], [[{'nome': 'fCessar'}, {'nome': 'Primeiro'}]]]
+print(len(lista))
+# print(lista)
+for partida in lista:
+    # print(f"Len Partida: {len(partida)}\n")
+    # print(partida, end=" ")
+    for jogador in partida:
+        print(f"{jogador[0]['nome']} & {jogador[1]['nome']}")
+        print("x")
 
-# Percorre os grupos dentro da lista
-for grupo in lista:
-    for time in grupo[0]:
-        print(time)
-    for time in grupo[1]:
-        print(time)
+
+    # for i,jogador in partida:
+    #     print(i['nome'],"&",jogador['nome'])
+
+# {% for fase in semi_finais %}
+#   {% for partida in fase %}
+#     {% if partida|length > 1 %}
+#       {{ partida[0]['nome'] }} & {{ partida[1]['nome'] }}

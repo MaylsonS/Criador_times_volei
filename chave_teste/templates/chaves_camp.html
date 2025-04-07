@@ -9,8 +9,46 @@
 <body>
     <h1>Chaves dos jogos </h1>
     <div class="final">
-        <div class="titulo_final"><h1>Final</h1></div>
-        <div class="jogo_final"></div>
+        {% if chave|length == 0 and semi_finais|length == 2 %}
+           <div class="titulo_final"><h1 style="color: red;"> Final</h1></div>
+
+        {% elif chave and semi_finais|length == 0%}
+
+            <style>.semi{display: none; position: relative; }</style>
+
+        {% else %}
+
+            <div class="titulo_final"><h1 style="color: blue;">Semi Finais</h1></div>
+        {% endif %}
+
+        <div class="semi">
+            {% for partida in semi_finais %}
+            <div class="jogo_final">
+            
+                <label class="card_partida checkbox-card">
+                    <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
+                    <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
+                    <div class="card-body">
+                        <h5 class="card-title">Partida  {{ loop.index }}</h5>
+                        <ul>
+                            {% for time in partida %}
+                            <p>
+                                {{time[0]['nome']}} & {{time[1]['nome']}}
+                            </p>
+                                {% if not loop.last %} 
+                                <p>vs</p>
+                                {% endif %}
+                            {% endfor %}
+                        
+                        </ul>
+            
+                    </div>
+
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+
     </div>
     <main>
         <form action="/campeonato/criar_partida" method="post" class="form_partidas">
@@ -27,7 +65,7 @@
                                 {% for partida in grupo %}
                                     {% if partida|length == 2 %}
                                     <p>
-                                        {{ partida[0]['nome'] }} & {{ partida[1]|replace("& {'nome': '", "")|replace("'}", "") }} 
+                                        {{ partida[0]['nome'] }} & {{ partida[1]['nome']}} 
                                     </p>
                                         {% if not loop.last %} 
                                             <p>vs</p>
@@ -45,9 +83,8 @@
                 {% endfor %}
             {% endif %}
                           
-            <form class="form_button" action method="post">
-                <button class="button_form"><h3>Comecar</h3></button>
-            </form>      
+            
+                <button class="button_comecar" type="submit"><h3>Comecar</h3></button>    
           </form>
           
     </main>

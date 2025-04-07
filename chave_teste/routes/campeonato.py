@@ -107,7 +107,7 @@ def criar_partida():
     session["partida"] = []
 
     if len(lista_times) != 1:
-        return redirect(url_for("campeonato_route.formar_chaves", erro="Voce precisa escolher uma partida!!"))
+        return redirect(url_for("campeonato_route.formar_chaves", erro="Voce precisa escolher uma partida!!", times = session["times_partida"]))
     else:
         #Indice dos times
         lista_times = [int(time) for time in lista_times]
@@ -115,14 +115,15 @@ def criar_partida():
         grupo =  CHAVES
         
         if not grupo:
-            return redirect(url_for("campeonato_route.formar_chaves", erro="Grupos vazio"))
+            return redirect(url_for("campeonato_route.formar_chaves", erro="Grupos vazio", times = session["times_partida"]))
 
         session["times_partida"] = [grupo[int(indici)] for indici in lista_times]
         print(f'times_partida: {session["times_partida"]}')
+
         partida_temporaria =[]
         for partida in session["times_partida"]:
             for time in partida:
-                dupla = [time[0]["nome"], time[1].split("'")[3]]
+                dupla = [time[0]["nome"], time[1]["nome"]]
                 partida_temporaria.append(dupla)
 
         session["partida"] = ( [partida_temporaria[i:i+2] for i in range (0, len(partida_temporaria), 2 )] )
