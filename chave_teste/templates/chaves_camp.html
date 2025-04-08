@@ -7,49 +7,74 @@
     <title>Chaves dos Times</title>
 </head>
 <body>
-    <h1>Chaves dos jogos </h1>
-    <div class="final">
-        {% if chave|length == 0 and semi_finais|length == 2 %}
-           <div class="titulo_final"><h1 style="color: red;"> Final</h1></div>
+    {% extends "base.html" %}
 
-        {% elif chave and semi_finais|length == 0%}
+    {% block conteudo %}
+    <nav>
+        <h1>Chaves dos jogos </h1>
 
-            <style>.semi{display: none; position: relative; }</style>
+    </nav>
 
-        {% else %}
+    <section class="final_semifinal">
+        <div class="final">
 
-            <div class="titulo_final"><h1 style="color: blue;">Semi Finais</h1></div>
-        {% endif %}
+            {% if chave|length == 0 and semi_finais|length >= 2 %}
+            <div class="titulo_final"><h1 style="color: red;"> Final</h1></div>
 
-        <div class="semi">
-            {% for partida in semi_finais %}
-            <div class="jogo_final">
-            
-                <label class="card_partida checkbox-card">
-                    <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
-                    <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
-                    <div class="card-body">
-                        <h5 class="card-title">Partida  {{ loop.index }}</h5>
-                        <ul>
-                            {% for time in partida %}
-                            <p>
-                                {{time[0]['nome']}} & {{time[1]['nome']}}
-                            </p>
-                                {% if not loop.last %} 
-                                <p>vs</p>
-                                {% endif %}
-                            {% endfor %}
+            {% elif chave and semi_finais|length == 0%}
+
+                <style>.semi{display: none; position: relative; }</style>
+
+            {% else %}
+
+                <div class="titulo_final"><h1 style="color: blue;">Semi Finais</h1></div>
+            {% endif %}
+
+            <div class="partidas">
+                <div class="semi">
+                    <form action="/campeonato/criar_partida" method="post" class="form_partidas">
+
+                        {% for partida in semi_finais %}
+                        <div class="jogo_final">
                         
-                        </ul>
-            
-                    </div>
+                            <label class="card_partida checkbox-card-final">
+                                <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
+                                <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
+                                <div class="card-body">
+                                    <h5 class="card-title">Partida  {{ loop.index }}</h5>
+                                    <ul>
+                                        {% for time in partida %}
+                                        <li>
+                                            {{time[0]['nome']}} & {{time[1]['nome']}}
+                                        </li>
+                                            {% if not loop.last %} 
+                                            <li>vs</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    
+                                    </ul>
+                        
+                                </div>
 
-                </label>
+                            </label>
+                        </div>
+
+
+                        {% endfor %}
+
+                    
+                        <div class="button" >
+                            <button class="button_form" type="submit"><h3>Comecar</h3></button>    
+                        </div>
+
+                    </form>
+                </div>
             </div>
-            {% endfor %}
-        </div>
+          
 
-    </div>
+        </div>
+    </section>
+
     <main>
         <form action="/campeonato/criar_partida" method="post" class="form_partidas">
              
@@ -64,16 +89,16 @@
                             <ul>
                                 {% for partida in grupo %}
                                     {% if partida|length == 2 %}
-                                    <p>
+                                    <li>
                                         {{ partida[0]['nome'] }} & {{ partida[1]['nome']}} 
-                                    </p>
+                                    </li>
                                         {% if not loop.last %} 
-                                            <p>vs</p>
+                                            <li>vs</li>
                                         {% endif %}
                                     {% else %}
-                                    <p>
+                                    <li>
                                         {{ partida[0] }}
-                                    </p>
+                                    </li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
@@ -83,8 +108,9 @@
                 {% endfor %}
             {% endif %}
                           
-            
-                <button class="button_comecar" type="submit"><h3>Comecar</h3></button>    
+                <div class="button" method="POST">
+                    <button class="button_form" type="submit"><h3>Comecar</h3></button>    
+                </div>
           </form>
           
     </main>
@@ -103,5 +129,7 @@
             {{time}}
         {% endfor %}
       </div>
+
+    {% endblock %}
 </body>
 </html>

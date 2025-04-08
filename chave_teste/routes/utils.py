@@ -14,5 +14,5 @@ def verificar_times(times, limite):
         return False
     return len(times[-1]) < limite
 
-def limpar_string(lista):
-    pass
+def verificar_final(lista):
+    return len(lista) == 1 and len(lista[0]) == 1

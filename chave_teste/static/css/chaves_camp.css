@@ -5,7 +5,7 @@ body{
 }
 main{
     display: flex;   
-    padding: 2%;
+    padding: 0% 8% 0% 8%;
     gap: 20%;
     flex-wrap: wrap;
     align-items: center;
@@ -18,18 +18,23 @@ main{
 
 .jogo_final{
     padding: 3.5%;
-    width: 30%;
+    width: 75%;
     margin: -5px 5% 0px 5%;
     border-radius: 5%;
 }
-
+.partidas{
+    padding: 0% 8% 0% 8%;
+}
 .semi{
     display: flex;
     background-color: palegreen;
+    height: 54dvh;
     border-radius: 30px;
+    margin-bottom: 8%;
 }
 
-.button_comecar{
+.button{
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -39,7 +44,7 @@ main{
     background-color: green;
     border-radius: 14px;
     font-size: medium;
-    width: 17%;
+    width: 32%;
     font-family: sans-serif;
 }
 
@@ -70,21 +75,33 @@ main{
     padding: 0;
 }
 
+.card-body li{
+    text-decoration: none;
+    list-style: none;
+}
+.checkbox-card-final{
+    background-color: antiquewhite;
+    box-shadow: 16px -4px 5px #8454;
+    border: 1px solid;
+    padding: 3%;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
 .checkbox-card {
     box-shadow: 16px -4px 5px #8454;
     border: 1px solid;
     padding: 3%;
     cursor: pointer;
     transition: border-color 0.3s, box-shadow 0.3s;
-    background-color: antiquewhite;
   }
 
-.checkbox-card:hover {
+.checkbox-card:hover,.checkbox-card-final  {
     border-color: #007bff;
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
   }
 
-.card-input:checked + .card-body {
+.card-input:checked + .card-body , .checkbox-card-final{
     border-color: #007bff;
     box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
   }
