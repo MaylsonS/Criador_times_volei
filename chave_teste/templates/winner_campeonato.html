@@ -18,7 +18,11 @@
     {% block conteudo %}
     <div class="textos mt-3" style="display: flex;">
         <div style="margin: auto;">
-            <h1>WINNER do CAMPEONATO!</h1>
+          {% if vencedor %}
+            <h1 style="color: greenyellow;">WINNER do CAMPEONATO!</h1>
+          {%else%}
+            <h1 style="color: red;">WINNER da Partida!</h1>
+          {% endif %}
         </div> 
         <br>
     </div>
@@ -40,27 +44,29 @@
         </div>
     </div>
 
-   <div class="mt-4 text-center">
-    {% if not chave  %}
-        {% if semi_finais and semi_finais|length == 1 %}
-            <!-- CAMPEONATO ENCERRADO -->
-            <form action="{{ url_for('campeonato_route.home') }}" method="get">
-                <button class="btn btn-success">Próximo Campeonato</button>
-            </form>
-        {% else %}
+    <div class="mt-4 text-center">
+      {% if chave|length == 0 %}
+          {% if semi_finais and semi_finais|length == 1 and semi_finais[0]|length == 1 %}
+              <!-- CAMPEONATO ENCERRADO -->
+              <form action="{{ url_for('campeonato_route.home') }}" method="get">
+                  <button class="btn btn-success" style="color: greenyellow;">Próximo Campeonato</button>
+              </form>
+          {% else %}
+              <!-- Aguardando mais partidas -->
+              <form action="{{ url_for('campeonato_route.proxima_partida') }}" method="post">
+                  <button class="btn btn-primary" style="color: pink;">Próxima Partida</button>
+              </form>
+          {% endif %}
+      {% else %}
           <form action="{{ url_for('campeonato_route.proxima_partida') }}" method="post">
-            <button class="btn btn-primary">Próxima Partida</button>
+              <button class="btn btn-primary" style="color: red;">Próxima Partida</button>
           </form>
-        {% endif %}
-    {% else %}
-        <form action="{{ url_for('campeonato_route.proxima_partida') }}" method="post">
-            <button class="btn btn-primary">Próxima Partida</button>
-        </form>
-    {% endif %}
+      {% endif %}
   </div>
-
   
 
+  <p>Chaves: {{ chave }}</p>
+  <p>Semifinais: {{ semi_finais }}</p>
   {% endblock %}
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

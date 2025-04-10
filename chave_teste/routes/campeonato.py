@@ -7,6 +7,9 @@ campeonato_route = Blueprint("campeonato_route", __name__)
 
 @campeonato_route.route("/", methods=["GET", "POST"])
 def home():
+    session.pop("conferir", None)
+    session.pop("grupo_origem", None)
+
     return render_template("campeonato.html")
 
 @campeonato_route.route("/verificar", methods=["POST"])
@@ -102,6 +105,7 @@ def criar_partida():
     session.pop("times_partida",  None)
     lista_times = request.form.getlist("selecione_os_times")
     session["partida"] = []
+    session["times_para_remocao"] = []
 
     if len(lista_times) != 1:
         print(f"CHAVE: {CHAVES}")
@@ -125,7 +129,8 @@ def criar_partida():
 
     
         session["times_partida"] = [grupo[int(indici)] for indici in lista_times]
-        print(f'times_partida: {session["times_partida"]}')
+        print(f"times_partida: {session['times_partida']}")
+        
 
         partida_temporaria =[]
         for partida in session["times_partida"]:
@@ -134,10 +139,15 @@ def criar_partida():
                 partida_temporaria.append(dupla)
 
         session["partida"] = ( [partida_temporaria[i:i+2] for i in range (0, len(partida_temporaria), 2 )] )
-        conferir = grupo.pop(lista_times[0])
+
+        session["times_para_remocao"] = grupo[int(lista_times[0])]
+        print(f"Times para remover {session['times_para_remocao']}")
+
+
+        session["grupo_origem"] = "CHAVES" if grupo == CHAVES else "SEMI_FINAL"
 
         print(grupo)
-        print(f"conferir os time removido: {conferir}")
+        print(f"conferir os time removido: {session['times_para_remocao']}")
         print("Partida",session["partida"])
         return render_template("campeonato_partida.html", sucesso="passou", times = session["times_partida"])
     
@@ -210,6 +220,16 @@ def pontos():
     
 @campeonato_route.route("/proxima_partida", methods = ["POST"])
 def proxima_partida():
+    if "grupo_origem" in session and "times_para_remocao" in session:
 
+        if session["grupo_origem"] == "CHAVES":
+            if session["times_para_remocao"] in CHAVES:
+                CHAVES.remove(session["times_para_remocao"])
+        elif session["grupo_origem"] == "SEMI_FINAL":
+            if session["times_para_remocao"] in SEMI_FINAL:
+                SEMI_FINAL.remove(session["times_para_remocao"])
+
+    session.pop("conferir", None)
+    session.pop("grupo_origem", None)
 
     return render_template("chaves_camp.html", chave= CHAVES, semi_finais= SEMI_FINAL)

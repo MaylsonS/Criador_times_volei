@@ -1,10 +1,11 @@
 def verificar_final(lista):
     return len(lista) == 1 and len(lista[0]) == 1
 
-lista =  [[[{'nome': 'Renan'}, {'nome': 'Mikael'}]]]
-if(verificar_final(lista)):
-    vencedor = lista[0][0]
-    print(vencedor)
+lista =  [[{'nome': 'ma ylson'}, {'nome': 'caio'}]]
+
+if len(lista) == 1:
+    print("Vencedor" ,lista[0][1])
+print(len(lista))
     
 
 
