@@ -1,15 +1,11 @@
-def verificar_final(lista):
-    return len(lista) == 1 and len(lista[0]) == 1
+lista =  [[[{'nome': 'g'}, {'nome': 't'}], [{'nome': 'd'}, {'nome': 'f'}]]]
 
-lista =  [[{'nome': 'ma ylson'}, {'nome': 'caio'}]]
+if len(lista) == 1 and len(lista[0]) != 1:
+    print("SEMI")
+else:
+    print("Final")
 
-if len(lista) == 1:
-    print("Vencedor" ,lista[0][1])
-print(len(lista))
-    
-
-
-# for partida in lista:
-#     for jogador in partida:
-#         print(f"{jogador[0]['nome']} & {jogador[1]['nome']}")
-#         print("x")
+# print(len(lista)) # 2
+# print(len(lista[0])) #2
+print(len(lista)) #2
+print((lista[0])) #2

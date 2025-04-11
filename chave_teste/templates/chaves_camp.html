@@ -17,21 +17,8 @@
 
     <p>Semifinais: {{ semi_finais }}</p>
 
-    {% if chave|length == 0 and semi_finais|length == 1 %}
-        <style>.final_semifinal,.form_partidas{}</style>
-    {% else %}
-        <style>.vencedor_campeonato{display: none;}</style>
-    {% endif %}
 
-    <section class="vencedor_campeonato">
-        {% if chave|length == 0 and semi_finais|length == 1 %}
-        <h1 style="color: cadetblue;">Vencedor do campeonato</h1>
-            {% for jogador in semi_finais[0][0] %}
-            {{ jogador["nome"] }} {% if not loop.last %}&{% endif %}
-            {% endfor %}
-        {% endif %}
-    </section>
-
+    
     <section class="final_semifinal">
         <div class="final">
 
