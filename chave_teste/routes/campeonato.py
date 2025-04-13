@@ -100,7 +100,7 @@ def formar_chaves():
 @campeonato_route.route("/comecar_partida", methods=["POST"])
 def comecar_partida():
     if "LIMITE" not in session or session["LIMITE"] == 0:
-        return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []),limite=session.get("LIMITE", 0))
+        return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []),limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
     
     print(f"LIMITE de PONTOS: {session["LIMITE"]}")
     session["partida_iniciada"] = True
@@ -109,7 +109,7 @@ def comecar_partida():
 @campeonato_route.route("/reiniciar_partida", methods=["POST"])
 def reiniciar_partida():
     if "LIMITE" not in session or session["LIMITE"] == 0:
-        return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []), limite=session.get("LIMITE", 0))
+        return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []), limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
     
     print(f"LIMITE de PONTOS: {session["LIMITE"]}")
     session["pontosA"], session["pontosB"] = 0, 0
@@ -185,7 +185,7 @@ def partida():
 
     times= SEIS if SEIS else TRIO if TRIO else DUPLA
 
-    return render_template("campeonato_partida.html", times=session.get("times_partida", []) ,erro=erro,sucesso=sucesso, limite=session.get("LIMITE", 0))
+    return render_template("campeonato_partida.html", times=session.get("times_partida", []) ,erro=erro,sucesso=sucesso, limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
 
 @campeonato_route.route("/pontos", methods=["POST"])
 def pontos():
