@@ -48,8 +48,8 @@ def trio_campeonato():
     jogador = {"nome": nome}
     adicionar_jogador(TRIO, jogador, 3)
     
-    if verificar_times(TRIO, 2):
-        return render_template("campeonato.html", nomes=exibir_nomes(TRIO, 2))
+    if verificar_times(TRIO, 3):
+        return render_template("campeonato.html", nomes=exibir_nomes(TRIO, 3))
 
     return render_template("campeonato.html", nomes=exibir_nomes(TRIO, 3))
 
@@ -102,7 +102,7 @@ def comecar_partida():
     if "LIMITE" not in session or session["LIMITE"] == 0:
         return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []),limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
     
-    print(f"LIMITE de PONTOS: {session["LIMITE"]}")
+    print(f"LIMITE de PONTOS: {session['LIMITE']}")
     session["partida_iniciada"] = True
     return redirect(url_for("campeonato_route.partida"))
 
@@ -111,7 +111,7 @@ def reiniciar_partida():
     if "LIMITE" not in session or session["LIMITE"] == 0:
         return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []), limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
     
-    print(f"LIMITE de PONTOS: {session["LIMITE"]}")
+    print(f"LIMITE de PONTOS: {session['LIMITE']}")
     session["pontosA"], session["pontosB"] = 0, 0
     session["partida_iniciada"] = False
     return redirect(url_for("campeonato_route.partida"))
@@ -121,14 +121,15 @@ def reiniciar_partida():
 @campeonato_route.route("/criar_partida", methods=["POST","GET"])
 def criar_partida():
     if request.method == "GET":
-        return "CRIAR PARTIDA GET"
+        return render_template("home.html")
     session["pontosB"], session["pontosA"] = 0, 0
     session.pop("times_partida",  None)
     session.pop("LIMITE", None) 
     session["partida_iniciada"] = False
-    lista_times = request.form.getlist("selecione_os_times")
+   
     session["partida"] = []
     session["times_para_remocao"] = []
+    lista_times = request.form.getlist("selecione_os_times")
 
     if len(lista_times) != 1:
         print(f"CHAVE: {CHAVES}")
