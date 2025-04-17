@@ -7,7 +7,7 @@ def adicionar_jogador(grupo, jogador ,limite):
     print(grupo)
     
 def exibir_nomes(grupo, limite):
-    return (f'{nome[0]["nome"]} & {nome[1]["nome"]}' if len(nome) == limite else f'{nome[0]["nome"]}' for nome in grupo)
+    return (" & ".join(j["nome"] for j in nome) for nome in grupo)
 
 def verificar_times(times, limite):
     if not times:

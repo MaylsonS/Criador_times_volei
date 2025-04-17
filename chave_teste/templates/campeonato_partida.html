@@ -28,11 +28,10 @@
       <div class="card h-94">
         <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
         <div class="card-body">
-          {% for partida in times %}
-            {% for jogador in partida[0] %}
+          {% for jogador in times[0][0] %}
               <section class="infor-time" style="display: flex; margin-bottom: 2%;">
                 <h3 class="card-nome" style="text-align: justify; width: 105%; align-items: center; display: flex;">
-                  {{ jogador|replace("& {'nome': '", "")|replace("'}", "")|replace("{'nome': '", "") }}
+                  {{ jogador["nome"]}}
                 </h3>
                 <div class="btn-time" style="justify-content: center; display: flex; width: 63%; gap: 10%; align-items: center;">
                   <form action="/campeonato/pontos" method="post">
@@ -42,7 +41,6 @@
                   </form>
                 </div>
               </section>
-            {% endfor %}
           {% endfor %}
         </div>
       </div>
@@ -56,11 +54,10 @@
       <div class="card h-94">
         <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
         <div class="card-body">
-          {% for partida in times %}
-            {% for jogador in partida[1] %}
+          {% for jogador in times[0][1] %}
               <section class="infor-time" style="display: flex; margin-bottom: 2%;">
                 <h3 class="card-nome" style="text-align: justify; width: 105%; align-items: center; display: flex;">
-                  {{ jogador|replace("& {'nome': '", "")|replace("'}", "")|replace("{'nome': '", "") }}
+                  {{ jogador["nome"] }}
                 </h3>
                 <div class="btn-time" style="justify-content: center; display: flex; width: 63%; gap: 10%; align-items: center;">
                   <form action="/campeonato/pontos" method="post">
@@ -70,7 +67,6 @@
                   </form>
                 </div>
               </section>
-            {% endfor %}
           {% endfor %}
         </div>
       </div>

@@ -49,7 +49,9 @@
                                     <ul>
                                         {% for time in partida %}
                                         <li>
-                                            {{ jogador["nome"] }}{% if not loop.last %} & {% endif %}
+                                            {% for jogador in time %}
+                                                {{ jogador['nome'] }}{% if not loop.last %} & {% endif %}
+                                            {% endfor %}
                                         </li>
                                             {% if not loop.last %} 
                                             <li>vs</li>
@@ -82,42 +84,39 @@
     <main>
         <form action="/campeonato/criar_partida" method="post" class="form_partidas">
              
-                {% if chave %}
-                {% for grupo in chave %}
-                <div class="partida">
-                    <label class="card_partida checkbox-card">
-                        <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
-                        <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
-                        <div class="card-body">
-                            <h5 class="card-title">Partida {{ loop.index }}</h5>
-                            <ul>
-                                {% for partida in grupo %}
-                                    {% if partida|length == 2 %}
-                                    <li>
-                                        {{ partida[0]['nome'] }} & {{ partida[1]['nome']}} 
-                                    </li>
-                                        {% if not loop.last %} 
-                                            <li>vs</li>
-                                        {% endif %}
-                                    {% else %}
-                                    <li>
-                                        {{ partida[0] }}
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </label>
-                </div>
-                {% endfor %}
+            {% if chave %}
+            {% for grupo in chave %}
+            <div class="partida">
+                <label class="card_partida checkbox-card">
+                    <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
+                    <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
+                    <div class="card-body">
+                        <h5 class="card-title">Partida {{ loop.index }}</h5>
+                        <ul>
+                            {% for time in grupo %}
+                                <li>
+                                    {% for jogador in time %}
+                                        {{ jogador['nome'] }}{% if not loop.last %} & {% endif %}
+                                    {% endfor %}
+                                </li>
+                                {% if not loop.last %}
+                                    <li>vs</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </label>
+            </div>
+            {% endfor %}
             {% endif %}
                           
-                <div class="button" method="POST">
-                    <button class="button_form" type="submit"><h3>Comecar</h3></button>    
-                </div>
-          </form>
-          
+            <div class="button" method="POST">
+                <button class="button_form" type="submit"><h3>Comecar</h3></button>    
+            </div>
+        </form>
+        
     </main>
+    
     <div class="mensagens">
         {% if erro %}
           <p style="color: red;">{{erro}}</p>

@@ -5,7 +5,6 @@
 <p>Semifinais: {{ semi_finais }}</p>
 <p>Chaves: {{ chave }}</p>
 
-
 <section class="vencedor_campeonato text-center mt-4">
     {% if chave|length == 0 and semi_finais[0]|length == 1 %}
         <h1 style="color: cadetblue;">🏆 Vencedor do Campeonato 🏆</h1>
@@ -14,12 +13,10 @@
                 {{ jogador["nome"] }}{% if not loop.last %} & {% endif %}
             {% endfor %}
         </h3>
-    {%else%}
-    <h1 style="color: cadetblue;">🏆 Final do Campeonato 🏆</h1>
-
+    {% else %}
+        <h1 style="color: cadetblue;">🏆 Final do Campeonato 🏆</h1>
     {% endif %}
 </section>
-
 
 <div class="partidas mt-5">
     <div class="semi">
@@ -33,7 +30,11 @@
                             <h5 class="card-title">Partida {{ loop.index }}</h5>
                             <ul>
                                 {% for time in partida %}
-                                    <li>{{ time[0]['nome'] }} & {{ time[1]['nome'] }}</li>
+                                    <li>
+                                        {% for jogador in time %}
+                                            {{ jogador["nome"] }}{% if not loop.last %} & {% endif %}
+                                        {% endfor %}
+                                    </li>
                                     {% if not loop.last %}<li>vs</li>{% endif %}
                                 {% endfor %}
                             </ul>
@@ -42,22 +43,21 @@
                 </div>
             {% endfor %}
 
-            {% if chave|length == 0 and semi_finais|length == 1  and semi_finais[0]|length != 1 %}
-            <div class="button text-center mt-4">
-                <button class="button_form btn btn-success" type="submit"> <h3>Começar</h3></button>
-            </div>
-        </form>
-
-            {%else%}
-            <form action="/campeonato/verificar" method="post">
+            {% if chave|length == 0 and semi_finais|length == 1 and semi_finais[0]|length != 1 %}
                 <div class="button text-center mt-4">
-                    <button class="button_form btn btn-success" type="submit" ><h3 >Começar outro Campeonato</h3></button>
+                    <button class="button_form btn btn-success" type="submit"> <h3>Começar</h3></button>
                 </div>
             </form>
+            {% else %}
+                <form action="/campeonato/verificar" method="post">
+                    <div class="button text-center mt-4">
+                        <button class="button_form btn btn-success" type="submit"><h3>Começar outro Campeonato</h3></button>
+                    </div>
+                </form>
             {% endif %}
     </div>
 </div>
-            
+
 <p>Semifinais: {{ semi_finais }}</p>
 <p>Chaves: {{ chave }}</p>
 
