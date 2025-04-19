@@ -19,9 +19,21 @@ app.secret_key = "Sapato_amassado"
 def home():
     return render_template("home.html")
 
+@app.route("/teste")
+def teste():
+    return render_template("teste.html")
+
 @app.route("/vencedor")
 def vencedor():
     return render_template("winner.html", vencedor= vencedor)
+
+@app.route("/tabela")
+def tabela():
+    return render_template("home.html")
+
+@app.route("/jogadores")
+def jogadores():
+    return render_template("home.html")
 
 @app.route("/logout")
 def sair():

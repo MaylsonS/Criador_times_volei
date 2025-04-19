@@ -11,3 +11,70 @@
     margin-top: 4%;
   }
 }
+
+body{
+  background-image: url("/static/imgs/home.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+}
+
+
+.logo-texto{
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
+
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 51dvh;
+}
+
+.container{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.texto{
+  color: white;
+ 
+}
+
+.btns{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.form-button{
+  width: 30%;
+}
+
+.button-modalidade{
+  width: 97%;
+  padding: 7%;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bolder;
+}
+
+.button-modalidade h3{
+  font-weight: bold;
+}
+
+.amistoso{
+  background-color: rgb(86, 13, 155);
+  
+}
+
+.campeonato{
+  background-color: orange;
+}
