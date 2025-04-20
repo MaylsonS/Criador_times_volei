@@ -5,104 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Document</title>
+    <title>Partida Amistoso</title>
 </head>
-<style>
-    .g-4, .gx-4 {
-        --bs-gutter-x: 0rem;
-    }
-    
-</style>
-<body style="overflow-x: hidden;">
-    
-    {% extends "base.html" %}
 
-    {% block conteudo %}
-  <main>
-    <div class="textos mt-3" style="display: flex;">
-        <div style="margin:auto; margin-left: 44.6%;display: flex;gap: 9%;">
+{% extends "base.html" %}
+{% block conteudo %}
+<link rel="stylesheet" href="/static/css/partida.css">
+<body>
+<main>
+    <div class="header">
+        <h1>Quantidade de Pontos</h1>
+    
+        {% if not limite or limite == 0 %}
+          <form class="form_limite" action="/partidas/pontos" method="post">
+            <input type="hidden" name="action" value="limtie_pontos">
+            <input type="number" name="ponto_limite">
+            <button class="limite_submit" type="submit">Enviar</button>
+          </form>
+        {% else %}
+          <h2 style="color: green;">Limite: {{ limite }}</h2>
+        {% endif %}
+    </div>
+    
+    <div class="pontos-container">
+        <!-- Time A -->
+        <div class="time-box">
+            <img src="/static/imgs/TI.png" alt="Time A">
+            <h1>{{ pontos1 }}</h1>
 
-            <h1>Qtds de Pontos</h1>
-            <form class="form_limite" action="/partidas/pontos"  method="post">
-              <input type="hidden" name="action" value="limtie_pontos">
-              <input type="number" name="ponto_limite" style="width: 14%;border-radius: 14%;text-align: center;font-size: 1.5rem;">
-              <button class="limite_submit" type="submit" >Enviar</button>
-            </form>
-        </div> 
-        <br>
-        <div style="display: flex;margin: auto;">  
-            <h2>Qtds de times</h2>
+            <div>
+            {% for jogador in times[0] %}
+                <div class="jogador-linha">
+                <h3>{{ jogador["nome"] }}</h3>
+                <div class="jogador-botoes">
+                    <form action="/partidas/pontos" method="post" style="display:inline;">
+                    <input type="hidden" name="action" value="atualizar_pontos">
+                    <button type="submit" class="btn btn-warning" name="btn_valorA" value="-1">-</button>
+                    </form>
+                    <form action="/partidas/pontos" method="post" style="display:inline;">
+                    <input type="hidden" name="action" value="atualizar_pontos">
+                    <button type="submit" class="btn btn-primary" name="btn_valorA" value="1">+</button>
+                    </form>
+                </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="versus">VS</div>
+
+        <!-- Time B -->
+        <div class="time-box">
+            <img src="/static/imgs/TI.png" alt="Time B">
+            <h1>{{ pontos2 }}</h1>
+
+            <div>
+            {% for jogador in times[1] %}
+                <div class="jogador-linha">
+                <h3>{{ jogador.nome }}</h3>
+                <div class="jogador-botoes">
+                    <form action="/partidas/pontos" method="post" style="display:inline;">
+                    <input type="hidden" name="action" value="atualizar_pontos">
+                    <button type="submit" class="btn btn-warning" name="btn_valorB" value="-1">-</button>
+                    </form>
+                    <form action="/partidas/pontos" method="post" style="display:inline;">
+                    <input type="hidden" name="action" value="atualizar_pontos">
+                    <button type="submit" class="btn btn-primary" name="btn_valorB" value="1">+</button>
+                    </form>
+                </div>
+                </div>
+            {% endfor %}
+            </div>
         </div>
     </div>
-    
-    <div class="row row-cols-1 row-cols-md-6 g-4 justify-content-center mt-3" style="gap: 3%;">
-    
-      <div class="col">
-          <h1 style="text-align: center;">{{ pontos1 }}</h1>
-          <div class="card h-94">
-              <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
-              <div class="card-body">
-                  {% for jogador in times[0] %}
-                  <section class="infor-time" style="display: flex; margin-bottom: 2%;">
-                      <h3 class="card-nome" style="text-align: justify; width: 105%; align-items: center; display: flex;">{{ jogador.nome }}</h3>
-                      <div class="btn-time" style="justify-content: center; display: flex; width: 63%; gap: 10%; align-items: center;">
-                          <form action="/partidas/pontos" method="post">
-                              <input type="hidden" name="action" value="atualizar_pontos">
-                              <button type="submit" class="btn btn-warning" name="btn_valorA" value="-1">-</button>
-                              <button type="submit" class="btn btn-primary" name="btn_valorA" value="+1">+</button>
-                          </form>
-                      </div>
-                  </section>
-                  {% endfor %}
-              </div>
-              <div class="card-footer">
-                  <small class="text-body-secondary">Last updated 3 mins ago</small>
-              </div>
-          </div>
-      </div>
 
-      
-      <h1 style="text-align: center; display: flex; align-items: center; width: auto;">VS</h1>
+    <!-- Botões de controle -->
+    <div class="botoes">
+        <form action="/partidas/comecar_partida" method="post">
+        <button type="submit" class="btn btn-success btn-lg">Começar</button>
+        </form>
 
-      
-      <div class="col">
-          <h1 style="text-align: center;">{{ pontos2 }}</h1>
-          <div class="card h-94">
-              <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
-              <div class="card-body">
-                  {% for jogador in times[1] %}
-                  <section class="infor-time" style="display: flex; margin-bottom: 2%;">
-                      <h3 class="card-nome" style="text-align: justify; width: 105%; align-items: center; display: flex;">{{ jogador.nome }}</h3>
-                      <div class="btn-time" style="justify-content: center; display: flex; width: 63%; gap: 10%; align-items: center;">
-                          <form action="/partidas/pontos" method="post">
-                              <input type="hidden" name="action" value="atualizar_pontos">
-                              <button type="submit" class="btn btn-warning" name="btn_valorB" value="-1">-</button>
-                              <button type="submit" class="btn btn-primary" name="btn_valorB" value="+1">+</button>
-                          </form>
-                      </div>
-                  </section>
-                  {% endfor %}
-              </div>
-              <div class="card-footer">
-                  <small class="text-body-secondary">Last updated 3 mins ago</small>
-              </div>
-          </div>
-      </div>
-    </div>
-
- 
-    <div class="botoes" style="margin-top: 3%;justify-content: center;display: flex;gap: 1%;">
-      <button type="button" class="btn btn-success btn-lg">Começar</button>
-      <button type="button" class="btn btn-danger btn-lg">Reiniciar</button>
+        <form action="/partidas/reiniciar_partida" method="post">
+        <button type="submit" class="btn btn-danger btn-lg">Reiniciar</button>
+        </form>
     </div>
 
      
-      <br><br><br><br><br><br><br><br>
-  </main>
+    <!-- Mensagens de erro/sucesso -->
+    <div class="msg">
+        {% if erro %}
+            <p class="erro">{{ erro }}</p>
+        {% endif %}
+        {% if sucesso %}
+            <p class="sucesso">{{ sucesso }}</p>
+        {% endif %}
+    </div>
+</main>
 
 
     {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </body>
+</body>
 </html>

@@ -1,107 +1,156 @@
-body{
-    padding: 0;
+body {
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    box-sizing: border-box;
+    padding: 0;
+    background-color: #f2e8ca; /* fundo estilo imagem */
 }
-main{
-    display: flex;   
-    padding: 0% 8% 0% 8%;
-    gap: 20%;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+
+nav {
+    background-color: #f2e8ca;
+    color: #000;
 }
 
 .titulo_final{
+    font-family: 'Luckiest Guy', cursive;
+    font-weight: 200;
+    color: #000;
+}
+
+.titulo_principal {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 2.5rem;
+    margin: 0;
+    padding-bottom: 0.3rem;
+    border-bottom: 3px solid #e26d00; /* underline laranja */
+    width: fit-content;
+}
+
+.final_semifinal {
+    padding: 1rem;
+}
+
+.content{
+    width: 50%;
+    display: flex;
+    margin: auto;
+    border-bottom: 4px solid rgb(46, 46, 46);
+}
+
+
+@keyframes linha_divisoria {
+    0% {
+        width: 100vw;
+        border-color: rgb(255, 77, 0); 
+    }
+    50% {
+        border-color: #e26d00; 
+    }
+    100% {
+        width: 50%;
+        border-color: rgb(46, 46, 46); 
+    }
+}
+
+.content.animate {
+    animation: linha_divisoria 1.6s ease-out forwards;
+}
+
+
+.titulo_final {
     text-align: center;
+    margin-bottom: 1rem;
 }
 
-.jogo_final{
-    padding: 3.5%;
-    width: 75%;
-    margin: -5px 5% 0px 5%;
-    border-radius: 5%;
-}
-.partidas{
-    padding: 0% 8% 0% 8%;
-}
-.semi{
-    display: flex;
-    background-color: palegreen;
-    height: 54dvh;
-    border-radius: 30px;
-    margin-bottom: 8%;
-}
-
-.button{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.button_form{
-    border: none;
-    background-color: green;
-    border-radius: 14px;
-    font-size: medium;
-    width: 32%;
-    font-family: sans-serif;
-}
-
-.form_partidas{
+.partidas {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 1rem;
 }
 
-.card_partida{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.card_partida {
+    background-color: #fff;
+    border: 2px solid #333;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 280px;
     text-align: center;
-    font-size: 18px;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
 }
 
-.card-body{
-    display: flex;
-    flex-direction: column;
+.card_partida:hover {
+    border-color: #999;
+    background-color: #f0f0f0;
 }
 
-.card-body ul{
-    margin: 0;
+.card_partida input[type="checkbox"] {
+    display: none;
+}
+
+.card_partida:has(input[type="checkbox"]:checked) {
+    border-color: #c67835;
+    background-color: #ffe6c9;
+    box-shadow: 0 0 8px #c67835;
+}
+
+.card-img-top {
+    width: 60%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+ul {
+    list-style: none;
     padding: 0;
 }
 
-.card-body li{
-    text-decoration: none;
-    list-style: none;
-}
-.checkbox-card-final{
-    background-color: antiquewhite;
-    box-shadow: 16px -4px 5px #8454;
-    border: 1px solid;
-    padding: 3%;
-    cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s;
+ul li {
+    margin: 0.2rem 0;
 }
 
-.checkbox-card {
-    box-shadow: 16px -4px 5px #8454;
-    border: 1px solid;
-    padding: 3%;
+.button {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.button_form {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
+    transition: background-color 0.3s;
+}
 
-.checkbox-card:hover,.checkbox-card-final  {
-    border-color: #007bff;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  }
+.button_form:hover {
+    background-color: #45a049;
+}
 
-.card-input:checked + .card-body , .checkbox-card-final{
-    border-color: #007bff;
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
-  }
+.mensagens {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+.semifinais {
+    display: none;
+}
+
+.vs {
+    color: #d48e55;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}

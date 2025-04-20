@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Vencedor</title>
+    <link rel="stylesheet" href="/static/css/winner.css">
+    <title>Vencedor Amistoso</title>
 </head>
 <style>
     .g-4, .gx-4 {
@@ -16,35 +17,33 @@
     {% extends "base.html" %}
 
     {% block conteudo %}
-    <div class="textos mt-3" style="display: flex;">
-        <div style="margin: auto;">
-            <h1>WINNER!</h1>
-        </div> 
-        <br>
-    </div>
-    
-    <div class="row row-cols-1 row-cols-md-6 g-4 justify-content-center mt-3">
-        <div class="col">
-          <div class="card h-100">
-            <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              {% for jogador in vencedor  %}
-              <h3 class="card-text">{{jogador.nome}}</h3>
-              {% endfor %}
-            </div>
-            <div class="card-footer">
-              <small class="text-body-secondary">Last updated 3 mins ago</small>
-            </div>
-          </div>
+
+    <div class="winner-container">
+      <div class="winner-header">
+      
+        <h1> 🏅 WINNER da Partida!</h1>
+
+        <div class="trophy-icon">
+          <i class="bi bi-trophy-fill"></i>
         </div>
       </div>
 
+      <div class="winner-card mt-4">
+        <div class="winner-label">Jogador(es) Campeão(ões):</div>
+        {%  for jogador in vencedor %}
+          <div class="winner-name">
+            {{jogador.nome}}
+          </div>
+        {% endfor %}
+      </div>
+
       <form class="iniciar_partida" action="/times" method="post">
-        <button type="submit">Proxima partida</button>
+        <button type="submit" class="next-button">Proxima partida</button>
 
       </form>
+      
 
+    </div>
 
     {% endblock %}
     

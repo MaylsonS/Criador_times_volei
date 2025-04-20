@@ -1,95 +1,57 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>times</title>
-</head>
-    <style>
-        .card-img, .card-img-bottom, .card-img-top {
-            width: 87%;
-            margin: auto;
-            }
-        .g-4, .gx-4 {
-            --bs-gutter-x: -0.5rem;
-        }
+{% extends "base.html" %}
+{% block conteudo %}
 
-        
-      .checkbox-card {
-          cursor: pointer;
-          transition: border-color 0.3s, box-shadow 0.3s;
-        }
+<link rel="stylesheet" href="/static/css/times.css">
 
-      .checkbox-card:hover {
-          border-color: #007bff;
-          box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-        }
+<div class="header-amistoso">
+  <h1>Selecionar Times para Amistoso</h1>
+</div>
 
-      .card-input:checked + .card-body {
-          border-color: #007bff;
-          box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
-        }
+<div class="quantidade-times">
+  <p>Quantidade de Times: {{ times|length }}</p>
+</div>
 
-    </style>
+<div class="mensagens">
+  {% if erro %}
+  <p style="color: red;">{{ erro }}</p>
+  {% endif %}
+  {% if sucesso %}
+  <p style="color: green;">{{ sucesso }}</p>
+  {% endif %}
+</div>
 
-
-    <body>
-    
-    {% extends "base.html" %}
-
-    {% block conteudo %}
-
-    <div class="textos mt-3" style="display: flex;">
-        <div style="margin: auto;margin-left: 44.6%;">
-
-            <h1>Texto qualquer</h1>
-        </div> 
-        <br>
-        <div style="display: flex;margin: auto;">  
-            <h2>Qtds de times {{ times|length }}</h2>
-        </div>
+<form action="/partidas/criar_partida" method="post">
+  <div class="grid-times">
+    {% for time in times %}
+    <div class="card-time">
+      <input type="checkbox" id="time-{{ loop.index0 }}" name="selecione_os_times" value="{{ loop.index0 }}">
+      <label for="time-{{ loop.index0 }}">
+        <img src="/static/imgs/TI.png" alt="Time {{ loop.index }}">
+        <h5>Time {{ loop.index }}</h5>
+        <ul>
+          {% for jogador in time %}
+          <li>{{ jogador.nome }}</li>
+          {% endfor %}
+        </ul>
+      </label>
     </div>
-    
-    <form action="/partidas/criar_partida" method="post">
-      <div class="container mt-4">
-        <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center mt-3">
-          {% for time in times %}
-            <div class="col">
-              <label class="card h-100 checkbox-card">
-                <input type="checkbox" name="selecione_os_times" id="{{loop.index-1}}" value="{{loop.index-1}}" class="card-input">
-                  <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="32%">
-                  <div class="card-body">
-                    <h5 class="card-title">Time {{loop.index}}</h5>
-                    <ul>
-                      {% for jogador in time %}
-                        <li>{{jogador.nome}}</li>
-                      {% endfor %}
-                    </ul>
-                </div>
-              </label>
-            </div>
-          {% endfor %}  
-          </div>
-        </div>
-        
-        <div class="text-center mt-4">
-          <button type="submit" class="btn btn-primary" id="start-match">Iniciar Partida</button>
-        </div>
-        <div class="mensagens">
-          {% if erro %}
-            <p style="color: red;">{{erro}}</p>
-          {% endif %}
+    {% endfor %}
+  </div>
 
-          {% if sucesso %}
-            <p style="color: green;">{{sucesso}}</p>
-          {% endif %}
-        </div>
-    </form>
+  <button type="submit" class="btn-submit">Iniciar Partida</button>
 
-      {% endblock %}
+</form>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </body>
-</html>
+<script>
+  const cards = document.querySelectorAll(".card-time");
+
+  cards.forEach(card => {
+    const checkbox = card.querySelector('input[type="checkbox"]');
+
+    checkbox.addEventListener("change", () => {
+      card.classList.toggle("checked", checkbox.checked);
+    });
+  });
+</script>
+
+{% endblock %}

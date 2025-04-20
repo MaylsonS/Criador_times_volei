@@ -1,0 +1,100 @@
+
+body {
+background-color: #fdf6e3;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-amistoso {
+text-align: center;
+margin: 0px 0 10px;
+}
+
+.header-amistoso h1 {
+font-size: 2.2rem;
+font-weight: bold;
+color: #222;
+}
+
+.quantidade-times {
+text-align: center;
+color: #555;
+margin-bottom: 20px;
+}
+
+.grid-times {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 1.5rem;
+padding: 0 20px;
+}
+
+.card-time {
+background-color: #fff;
+border: 2px solid #e0e0e0;
+border-radius: 12px;
+transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+cursor: pointer;
+padding: 15px;
+text-align: center;
+width: 220px;
+box-sizing: border-box;
+}
+
+.card-time:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-time input[type="checkbox"] {
+display: none;
+}
+
+.card-time img {
+width: 100%;
+max-width: 140px;
+height: auto;
+margin-bottom: 10px;
+}
+
+.card-time h5 {
+font-size: 1.2rem;
+color: #ff6600;
+margin-bottom: 8px;
+}
+
+.card-time ul {
+padding-left: 0;
+list-style: none;
+font-size: 0.95rem;
+color: #333;
+}
+
+.checked {
+border-color: #ff6600 !important;
+background-color: #fff3e6;
+box-shadow: 0 0 10px rgba(255, 102, 0, 0.4);
+}
+
+.btn-submit {
+display: block;
+margin: 30px auto 10px;
+background-color: #ff6600;
+color: white;
+font-weight: bold;
+border: none;
+border-radius: 10px;
+padding: 12px 30px;
+font-size: 1.1rem;
+transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+background-color: #e65c00;
+}
+
+.mensagens {
+text-align: center;
+margin-top: 10px;
+font-size: 1rem;
+}

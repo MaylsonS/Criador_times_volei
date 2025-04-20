@@ -1,31 +1,125 @@
 {% extends "base.html" %}
 
 {% block conteudo %}
+<style>
+    body {
+        background-color: #f7f1e3;
+        font-family: 'Courier New', Courier, monospace;
+        color: #333;
+    }
 
-<p>Semifinais: {{ semi_finais }}</p>
-<p>Chaves: {{ chave }}</p>
+    .vencedor_campeonato h1 {
+        font-size: 2.2rem;
+        background-color: #ff793f;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 15px;
+        display: inline-block;
+        box-shadow: 3px 3px 0px #2f3542;
+        font-weight: bold;
+    }
+
+    .vencedor_campeonato h2 {
+        margin-top: 10px;
+        color: #272521;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .partidas {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2rem;
+        gap: 2rem;
+    }
+
+    .semi{
+        text-align: center;
+        font-family: 35px;
+    }
+
+    .jogo_final {
+        background-color: #fff;
+        border: 2px solid #2f3542;
+        border-radius: 15px;
+        width: 280px;
+        padding: 20px;
+        box-shadow: 4px 4px 0px #2f3542;
+        transition: transform 0.2s;
+    }
+
+    .jogo_final:hover {
+        transform: scale(1.03);
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #ff793f;
+    }
+
+    .jogo_final ul {
+        list-style-type: none;
+        padding-left: 0;
+        font-size: 1rem;
+    }
+
+    .jogo_final li {
+        margin-bottom: 5px;
+    }
+
+    .card-img-top {
+        width: 100%;
+        max-height: 150px;
+        object-fit: contain;
+        margin-bottom: 15px;
+    }
+
+    .button_form {
+        background-color: #ff793f;
+        color: white;
+        
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+
+        padding: 7%;
+        font-size: 15px;
+    }
+
+    .button_form:hover {
+        background-color: #e17055;
+    }
+
+    .button {
+        margin-top: 2rem;
+        text-align: center;
+    }
+</style>
 
 <section class="vencedor_campeonato text-center mt-4">
     {% if chave|length == 0 and semi_finais[0]|length == 1 %}
-        <h1 style="color: cadetblue;">🏆 Vencedor do Campeonato 🏆</h1>
-        <h3>
+        <h1>🏆 Vencedor do Campeonato 🏆</h1>
+        <h2>
             {% for jogador in semi_finais[0][0] %}
                 {{ jogador["nome"] }}{% if not loop.last %} & {% endif %}
             {% endfor %}
-        </h3>
+        </h2>
     {% else %}
-        <h1 style="color: cadetblue;">🏆 Final do Campeonato 🏆</h1>
+        <h1>🏆 Final do Campeonato 🏆</h1>
     {% endif %}
 </section>
 
-<div class="partidas mt-5">
+<div class="partidas">
     <div class="semi">
         <form action="/campeonato/criar_partida" method="post" class="form_partidas">
             {% for partida in semi_finais %}
                 <div class="jogo_final">
                     <label class="card_partida checkbox-card-final">
                         <input type="checkbox" name="selecione_os_times" id="{{ loop.index0 }}" value="{{ loop.index0 }}" class="card-input">
-                        <img src="/static/imgs/TI.png" class="card-img-top" alt="..." width="42%">
+                        <img src="/static/imgs/TI.png" class="card-img-top" alt="Time">
                         <div class="card-body">
                             <h5 class="card-title">Partida {{ loop.index }}</h5>
                             <ul>
@@ -44,21 +138,18 @@
             {% endfor %}
 
             {% if chave|length == 0 and semi_finais|length == 1 and semi_finais[0]|length != 1 %}
-                <div class="button text-center mt-4">
-                    <button class="button_form btn btn-success" type="submit"> <h3>Começar</h3></button>
+                <div class="button">
+                    <button class="button_form" type="submit">Começar</button>
                 </div>
             </form>
             {% else %}
                 <form action="/campeonato/verificar" method="post">
-                    <div class="button text-center mt-4">
-                        <button class="button_form btn btn-success" type="submit"><h3>Começar outro Campeonato</h3></button>
+                    <div class="button">
+                        <button class="button_form" type="submit">Começar outro Campeonato</button>
                     </div>
                 </form>
             {% endif %}
     </div>
 </div>
-
-<p>Semifinais: {{ semi_finais }}</p>
-<p>Chaves: {{ chave }}</p>
 
 {% endblock %}

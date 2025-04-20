@@ -1,74 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Vencedor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campeão!</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/static/css/winner_campeonato.css">
 </head>
-<style>
-    .g-4, .gx-4 {
-        --bs-gutter-x: 0rem;
-    }
-</style>
 <body>
-    {% extends "base.html" %}
+  {% extends "base.html" %}
+  {% block conteudo %}
 
-    {% block conteudo %}
-    <div class="textos mt-3" style="display: flex;">
-        <div style="margin: auto;">
-          {% if vencedor %}
-            <h1 style="color: greenyellow;">WINNER do CAMPEONATO!</h1>
-          {%else%}
-            <h1 style="color: red;">WINNER da Partida!</h1>
-          {% endif %}
-        </div> 
-        <br>
+  <div class="winner-container">
+    <div class="winner-header">
+      {% if vencedor %}
+        🏅 WINNER da Partida!
+      {% else %}
+      🏆 WINNER do CAMPEONATO!
+      {% endif %}
+
+      <div class="trophy-icon">
+        <i class="bi bi-trophy-fill"></i>
+      </div>
     </div>
-    
-    <div class="row row-cols-1 row-cols-md-6 g-4 justify-content-center mt-3">
-        <div class="col">
-          <div class="card h-100">
-            <img src="/static/imgs/TI.png" class="card-img-top" width="32%">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              {% for jogador in vencedor %}
-              <h3 class="card-text">{{jogador|replace("& {'nome': '", "")|replace("'}", "")|replace("{'nome': '", "")}}</h3>
-              {% endfor %}
-            </div>
-            <div class="card-footer">
-              <small class="text-body-secondary">Last updated 3 mins ago</small>
-            </div>
-          </div>
+
+
+
+    <div class="winner-card mt-4">
+      <div class="winner-label">Jogador(es) Campeão(ões):</div>
+      {% for jogador in vencedor %}
+        <div class="winner-name">
+          {{ jogador|replace("& {'nome': '", "")|replace("'}", "")|replace("{'nome': '", "") }}
         </div>
+      {% endfor %}
     </div>
 
-    <div class="mt-4 text-center">
+    <div class="mt-4">
       {% if chave|length == 0 %}
           {% if semi_finais and semi_finais|length == 1 and semi_finais[0]|length == 1 %}
               <!-- CAMPEONATO ENCERRADO -->
               <form action="{{ url_for('campeonato_route.home') }}" method="get">
-                  <button class="btn btn-success" style="color: greenyellow;">Próximo Campeonato</button>
+                  <button class="next-button">Novo Campeonato</button>
               </form>
           {% else %}
               <!-- Aguardando mais partidas -->
               <form action="{{ url_for('campeonato_route.proxima_partida') }}" method="post">
-                  <button class="btn btn-primary" style="color: pink;">Próxima Partida</button>
+                  <button class="next-button">Próxima Partida</button>
               </form>
           {% endif %}
       {% else %}
           <form action="{{ url_for('campeonato_route.proxima_partida') }}" method="post">
-              <button class="btn btn-primary" style="color: red;">Próxima Partida</button>
+              <button class="next-button">Próxima Partida</button>
           </form>
       {% endif %}
-  </div>
-  
+    </div>
 
-  <p>Chaves: {{ chave }}</p>
-  <p>Semifinais: {{ semi_finais }}</p>
+    <div class="footer-info">
+      <p>Chaves: {{ chave }}</p>
+      <p>Semifinais: {{ semi_finais }}</p>
+    </div>
+  </div>
+
   {% endblock %}
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
