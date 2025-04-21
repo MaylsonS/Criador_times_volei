@@ -49,6 +49,7 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 2rem;
+    padding: 0% 6% 0% 6%;
     margin-bottom: 2rem;
   }
   .add-player-box, .teams-box {

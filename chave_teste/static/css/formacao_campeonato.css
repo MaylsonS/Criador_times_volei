@@ -120,4 +120,13 @@ body {
     .add-player-box h2, .teams-box h3 {
       font-size: 1.4rem;
     }
+
+    .container-boxes {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 0% 6% 0% 6%;
+        margin-bottom: 2rem;
+      }
   }

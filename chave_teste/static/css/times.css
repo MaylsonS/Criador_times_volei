@@ -98,3 +98,23 @@ text-align: center;
 margin-top: 10px;
 font-size: 1rem;
 }
+@media (max-width: 740px) {
+    .form-card{
+        flex-wrap: wrap-reverse;
+        display: flex;
+    }
+    
+    .card-time {
+        background-color: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+        cursor: pointer;
+        padding: 11px;
+        text-align: center;
+        width: 180px;
+        box-sizing: border-box; 
+    }
+    
+    
+}

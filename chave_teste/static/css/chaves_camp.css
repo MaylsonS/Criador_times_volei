@@ -154,3 +154,11 @@ main {
     font-weight: bold;
     margin: 0.5rem 0;
 }
+
+.form-card{
+    margin: auto;
+    align-items: center;
+    display: flex
+;
+    flex-direction: column;
+}
