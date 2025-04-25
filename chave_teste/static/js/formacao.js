@@ -1,7 +1,17 @@
 document.addEventListener(  "DOMContentLoaded", () => {
     const botoes = document.querySelectorAll('button[data-group]');
     const form = document.querySelector(".form_time")
+    const botaoPadrao = document.querySelector('button[data-group="dupla"]');
+    document.querySelector("#nome").focus();
+
+
+
+    if (botaoPadrao) {
+        botaoPadrao.classList.replace('btn-dark', 'btn-warning');
+        atualizar_rota(botaoPadrao);
+    }
     
+
     botoes.forEach((botao) => {
         botao.addEventListener('click', () =>  {
             
@@ -10,6 +20,7 @@ document.addEventListener(  "DOMContentLoaded", () => {
             botao.classList.replace('btn-dark', 'btn-warning');
         
             atualizar_rota(botao);
+
         });
     });
 
