@@ -42,6 +42,30 @@ def partida():
 
     return render_template("partida.html", times=times ,erro=erro,sucesso=sucesso)
 
+
+############## Ajustar Para funcinar no amistoso ####################################
+
+@partidas_route.route("/comecar_partida", methods=["POST"])
+def comecar_partida():
+    if "LIMITE" not in session or session["LIMITE"] == 0:
+        return render_template("partidas_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []),limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
+    
+    print(f"LIMITE de PONTOS: {session['LIMITE']}")
+    session["partida_iniciada"] = True
+    return redirect(url_for("partidas_route.partida"))
+
+@partidas_route.route("/reiniciar_partida", methods=["POST"])
+def reiniciar_partida():
+    if "LIMITE" not in session or session["LIMITE"] == 0:
+        return render_template("partidas_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []), limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
+    
+    print(f"LIMITE de PONTOS: {session['LIMITE']}")
+    session["pontosA"], session["pontosB"] = 0, 0
+    session["partida_iniciada"] = False
+    return redirect(url_for("partidas_route.partida"))
+
+##########################################################################################
+
 @partidas_route.route("/pontos", methods=["POST"])
 def pontos():
     if "pontosA" not in session:
