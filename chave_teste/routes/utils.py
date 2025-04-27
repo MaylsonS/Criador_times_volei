@@ -9,6 +9,11 @@ def adicionar_jogador(grupo, jogador ,limite):
 def exibir_nomes(grupo, limite):
     return (" & ".join(j["nome"] for j in nome) for nome in grupo)
 
+def verificar_times_impar(times):
+    if len(times) % 2 != 0:
+        return True
+    return False
+    
 def verificar_times(times, limite):
     if not times:
         return False

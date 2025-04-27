@@ -130,3 +130,79 @@ body {
         margin-bottom: 2rem;
       }
   }
+
+.modal-dialog {
+  max-width: 500px;
+  margin: 1.75rem auto; 
+}
+
+.modal-content {
+  background-color: #fff5dc;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: black;
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.btn-close{
+  background: white;
+}
+
+.modal-title {
+  font-family: 'Arial Black', sans-serif;
+}
+
+.modal-body {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.modal-footer {
+  border-top: 2px solid black;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #fff5dc;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.modal-footer .btn-primary {
+  background-color: #e96c0a;
+  color: black;
+  font-weight: bold;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+  .modal-dialog {
+    max-width: 90%; /* Deixa o modal ocupar quase a tela toda no celular */
+    margin: 1rem auto;
+  }
+
+  .modal-body {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    flex-direction: column; /* Botões um em cima do outro em telas pequenas */
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}

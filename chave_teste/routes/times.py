@@ -27,6 +27,8 @@ def times():
             return render_template("formacao.html", nomes=exibir, erro="Há um time incompleto!")
         return render_template("times.html", times=SEIS, erro=erro, sucesso=sucesso)
 
+    return render_template("formacao.html", nomes=[], erro="Nenhum time foi formado ainda")
+
 
 @times_routes.route("/dupla", methods=["POST"])
 def dupla():

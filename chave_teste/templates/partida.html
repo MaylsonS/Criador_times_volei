@@ -75,7 +75,7 @@
             <div>
             {% for jogador in times[1] %}
                 <div class="jogador-linha">
-                <h3>{{ jogador.nome }}</h3>
+                <h3>{{ jogador["nome"] }}</h3>
                 <div class="jogador-botoes">
                     <form action="/partidas/pontos" method="post" style="display:inline;">
                     <input type="hidden" name="action" value="atualizar_pontos">
