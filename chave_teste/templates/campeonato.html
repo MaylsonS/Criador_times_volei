@@ -44,16 +44,22 @@
       </form>
     </div>
 
-    <div class="teams-box">
-      <h3>TIMES!</h3>
-      <ul>
-        {%if nomes%}
-            {% for nome in nomes %}
-        <li> <h4><strong>{{ nome }}</strong></h4> </li>
-            {% endfor %}
-        {% endif %}
-      </ul>
-    </div>
+    <section class="Times"> 
+      <form action="limpar_times" method="post" class="form-times">
+        <button type="submit" class="btn btn-danger limpar-times">Limpar Times</button>
+      </form>
+
+      <div class="teams-box">
+        <h3>TIMES!</h3>
+        <ul>
+          {%if nomes%}
+              {% for nome in nomes %}
+          <li> <h4><strong>{{ nome }}</strong></h4> </li>
+              {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+  </section>
 
   </div>
 
@@ -99,10 +105,6 @@
     </div>
   </div>
   
-  
-
-  <p>Semifinais: {{ semi_finais }}</p>
-  <p>Chaves: {{ chave }}</p>
   <Script src="/static/js/camp.js"></Script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   {% endblock %}

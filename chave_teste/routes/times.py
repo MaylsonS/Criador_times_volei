@@ -52,3 +52,9 @@ def seis():
     jogador = {"nome": nome}
     adicionar_jogador(SEIS, jogador, 6)
     return render_template("formacao.html", nomes=exibir_nomes(SEIS, 6))
+
+@times_routes.route("/limpar_times", methods=["POST"])
+def limpar_times():
+    apagar_times = DUPLA if DUPLA else TRIO if TRIO else SEIS
+    apagar_times.clear()
+    return render_template("formacao.html", erro="Times Excluidos")

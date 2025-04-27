@@ -48,6 +48,12 @@ def confirmar_verificacao():
     session["limite"] = 2 if DUPLA else 3 if TRIO else 6
     return redirect(url_for("campeonato_route.formar_chaves"))
 
+@campeonato_route.route("/limpar_times", methods=["POST"])
+def limpar_times():
+    apagar_times = DUPLA if DUPLA else TRIO if TRIO else SEIS
+    apagar_times.clear()
+    return render_template("campeonato.html", erro="Times Excluidos")
+    
 
 @campeonato_route.route("/dupla", methods=["POST"])
 def dupla_campeonato():
@@ -123,7 +129,7 @@ def comecar_partida():
     
     print(f"LIMITE de PONTOS: {session['LIMITE']}")
     session["partida_iniciada"] = True
-    return redirect(url_for("campeonato_route.partida"))
+    return redirect(url_for("campeonato_route.partida", sucesso= "Partida iniciada"))
 
 @campeonato_route.route("/reiniciar_partida", methods=["POST"])
 def reiniciar_partida():
@@ -133,7 +139,7 @@ def reiniciar_partida():
     print(f"LIMITE de PONTOS: {session['LIMITE']}")
     session["pontosA"], session["pontosB"] = 0, 0
     session["partida_iniciada"] = False
-    return redirect(url_for("campeonato_route.partida"))
+    return redirect(url_for("campeonato_route.partida", erro= "Partida Reiniciada"))
 
 
 
@@ -236,7 +242,7 @@ def pontos():
         return render_template("campeonato_partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []), limite=0)
 
     if not session.get("partida_iniciada"):
-        return render_template("campeonato_partida.html", erro="É preciso começar a partida primeiro!", times=session.get("times_partida", []), limite=session["LIMITE"])
+        return render_template("campeonato_partida.html", erro="É preciso COMEÇAR a partida primeiro!", times=session.get("times_partida", []), limite=session["LIMITE"], pontos1=session["pontosA"], pontos2=session["pontosB"])
 
     # 3. Atualizar pontos
     if acao == "atualizar_pontos":

@@ -1,17 +1,3 @@
-@media (max-width: 582px) {
-    .escolhas{
-        flex-direction: column;
-        margin: auto;
-  }
-
-  .card{
-    margin: auto;
-    gap: 3%;
-    background: cadetblue;
-    margin-top: 4%;
-  }
-}
-
 body{
   background-image: url("/static/imgs/home.jpg");
   background-size: cover;
@@ -42,7 +28,11 @@ main{
 }
 
 .texto{
-  color: white;
+
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 50px;
+  color: #fff;
  
 }
 
@@ -77,4 +67,20 @@ main{
 
 .campeonato{
   background-color: orange;
+}
+
+@media (max-width: 780px) {
+  .btns{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-amistoso{
+    margin-bottom: 4%;
+  }
+
+  .form-button{
+    width: 68%;
+  }
+
 }

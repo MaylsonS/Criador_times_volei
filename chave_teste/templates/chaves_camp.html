@@ -19,14 +19,14 @@
         <div class="final">
 
             {% if chave|length == 0 and semi_finais|length >= 2 %}
-                <div class="titulo_final"><h1> Semi-Finais </h1></div>
+                <div class="titulo_final"><h1 style="color: red;">Final</h1></div>
             
                 <style> .partida{display: none;}</style> 
 
             {% elif chave and semi_finais|length == 0 %}
                 <style>.semi{display: none; position: relative; }</style>
             {% else %}
-                <div class="titulo_final"><h1 style="color: red;">Final</h1></div>
+                <div class="titulo_final"><h1> Semi-Finais </h1></div>
                 
             {% endif %}
 
@@ -134,7 +134,6 @@
             linha.classList.add('animate');
         });
     </script>
-
     {% endblock %}
 </body>
 </html>

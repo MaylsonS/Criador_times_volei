@@ -12,7 +12,7 @@ app.register_blueprint(times_routes, url_prefix="/times")
 app.register_blueprint(campeonato_route, url_prefix="/campeonato")
 
 
-app.secret_key = "Sapato_amassado"
+app.secret_key = "Senha"
 
 
 @app.route("/")

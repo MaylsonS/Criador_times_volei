@@ -43,7 +43,6 @@ def partida():
     times= SEIS if SEIS else TRIO if TRIO else DUPLA
     return render_template("partida.html",times=session.get("times_partida", []),erro=erro,sucesso=sucesso,pontos1=session.get("pontosA", 0),pontos2=session.get("pontosB", 0),limite=session.get("LIMITE", 0))
 
-
 @partidas_route.route("/comecar_partida", methods=["POST"])
 def comecar_partida():
  
