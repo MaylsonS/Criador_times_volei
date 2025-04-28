@@ -21,3 +21,12 @@ Desenvolvido usando **Flask**, **HTML** e **JavaScript** puros.
    ```bash
    git clone https://github.com/MaylsonS/Criador_times_volei.git
    cd Criador_times_volei
+   
+2. Execute a aplicação:
+   ```bash
+   python app.py
+   
+3. Acesse no navegador::
+   ```bash
+   http://127.0.0.1:5000
+
