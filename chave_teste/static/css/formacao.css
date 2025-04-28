@@ -120,6 +120,15 @@ flex-direction: column;
 margin: auto;
 }
 
+.form-formar{
+  justify-content: center;
+  display: flex;
+}
+/* 
+.form-formar button{
+  width: 10%;
+} */
+
 @media (max-width: 480px) {
 .formacao {
   font-size: 2rem;

@@ -203,7 +203,7 @@ def criar_partida():
         print(grupo)
         print(f"conferir os time removido: {session['times_para_remocao']}")
         print("Partida",session["partida"])
-        return render_template("campeonato_partida.html", sucesso="passou", times = session["times_partida"],limite=session.get("LIMITE", 0))
+        return render_template("campeonato_partida.html", times = session["times_partida"],limite=session.get("LIMITE", 0))
     
 @campeonato_route.route("/partida", methods=["POST", "GET"])
 def partida():

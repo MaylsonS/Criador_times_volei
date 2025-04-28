@@ -32,7 +32,7 @@ def criar_partida():
         print(f'times_partida: {session["times_partida"]}')
 
         print(session["times_partida"])
-        return render_template("partida.html", sucesso="passou", times = session["times_partida"])
+        return render_template("partida.html", times = session["times_partida"])
 
 
 @partidas_route.route("/partida")
@@ -49,7 +49,7 @@ def comecar_partida():
     if "LIMITE" not in session or session["LIMITE"] == 0:
         return render_template("partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []),limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
     
-    print(f"LIMITE de PONTOS: {session["LIMITE"]}")
+    print(f"LIMITE de PONTOS: {session['LIMITE']}")
     session["partida_iniciada"] = True
     return redirect(url_for("partidas_route.partida",  sucesso="Partida Iniciada!"))
 
@@ -59,7 +59,7 @@ def reiniciar_partida():
     if "LIMITE" not in session or session["LIMITE"] == 0:
         return render_template("partida.html", erro="É preciso Colocar um limite de pontos !!!", times=session.get("times_partida", []), limite=session.get("LIMITE", 0),pontos1=session["pontosA"], pontos2=session["pontosB"])
     
-    print(f"LIMITE de PONTOS: {session["LIMITE"]}")
+    print(f"LIMITE de PONTOS: {session['LIMITE']}")
     session["pontosA"], session["pontosB"] = 0, 0
     session["partida_iniciada"] = False
     return redirect(url_for("partidas_route.partida",  sucesso="Partida Reiniciada!"))
@@ -91,7 +91,7 @@ def pontos():
     
     
     if not session.get("partida_iniciada"):
-        return render_template("partida.html", erro="É preciso começar a partida primeiro!", times=session.get("times_partida", []), limite=limite)
+        return render_template("partida.html", erro="É preciso começar a partida primeiro!", times=session.get("times_partida", []), limite=limite, pontos1=session["pontosA"], pontos2=session["pontosB"])
 
     elif acao == "atualizar_pontos":
         # Atualiza os pontos para o time A
